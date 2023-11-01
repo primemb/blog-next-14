@@ -6,7 +6,7 @@ const HomePage = async () => {
   const posts: IPost[] = await res.json();
 
   return (
-    <div className="flex flex-col h-full p-60">
+    <div className="flex flex-col h-full px-60 py-10">
       {posts.map((post) => (
         <Post key={post.id} post={post} />
       ))}

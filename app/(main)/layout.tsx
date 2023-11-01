@@ -1,5 +1,12 @@
+import Navbar from "./_components/navbar";
+
 const Layout = ({ children }: { children: React.ReactNode }) => {
-  return <div className="h-full w-full dark:bg-[#1F1F1F]">{children}</div>;
+  return (
+    <div className="flex flex-col w-full dark:bg-[#1F1F1F] bg-gray-100">
+      <Navbar />
+      <main className="h-full w-full">{children}</main>
+    </div>
+  );
 };
 
 export default Layout;

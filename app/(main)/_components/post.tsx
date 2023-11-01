@@ -17,7 +17,7 @@ interface PostProps {
 
 const Post = ({ post }: PostProps) => {
   return (
-    <Card className="bg-secondary/5 text-muted border-none p-4 mb-4">
+    <Card className="bg-white dark:bg-primary/5 text-black dark:text-white border-none p-4 mb-4">
       <CardHeader>
         <CardTitle>{post.title}</CardTitle>
         <CardDescription>Author : {post.author}</CardDescription>
