@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/card";
 
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 interface PostProps {
   post: IPost;
@@ -26,7 +27,9 @@ const Post = ({ post }: PostProps) => {
         <p>{post.content}</p>
       </CardContent>
       <CardFooter className="flex flex-row-reverse">
-        <Button>Read more</Button>
+        <Button asChild>
+          <Link href={`/${post.id}`}>Read more</Link>
+        </Button>
       </CardFooter>
     </Card>
   );

@@ -2,7 +2,14 @@ import { IPost } from "@/data/posts";
 import Post from "../_components/post";
 
 const HomePage = async () => {
-  const res = await fetch(process.env.NEXT_PUBLIC_URL + "/api/posts");
+  const res = await fetch(process.env.NEXT_PUBLIC_URL + "/api/posts", {
+    cache: "no-cache",
+  });
+
+  if (!res.ok) {
+    throw new Error("Something went wrong");
+  }
+
   const posts: IPost[] = await res.json();
 
   return (
