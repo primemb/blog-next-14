@@ -1,7 +1,9 @@
 "use client";
 
 import { ModeToggle } from "@/components/mode-toggle";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { User } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
@@ -20,6 +22,7 @@ const Navbar = () => {
         <ul className="flex flex-1 gap-10 text-black dark:text-white  ">
           {links.map(({ href, label }) => (
             <li
+              key={label}
               className={cn(
                 "text-black dark:text-white",
                 pathName === href && "font-bold"
@@ -29,7 +32,15 @@ const Navbar = () => {
             </li>
           ))}
         </ul>
-        <ModeToggle />
+        <div className="flex items-center">
+          <Button size="sm" variant="link" asChild>
+            <Link href="/auth">
+              <User className="w-4 h-4 mr-2" />
+              Login / Signup
+            </Link>
+          </Button>
+          <ModeToggle />
+        </div>
       </nav>
     </div>
   );
