@@ -1,4 +1,4 @@
-import { posts } from "@/data/posts";
+import { DataStore } from "@/data/posts";
 import { NextRequest, NextResponse } from "next/server";
 
 export const GET = (
@@ -7,7 +7,8 @@ export const GET = (
 ) => {
   const { postId } = params;
 
-  const post = posts.find((p) => p.id === postId);
+  const dataStore = new DataStore();
+  const post = dataStore.getPost(postId);
 
   if (!post) {
     return NextResponse.json({ error: "Post not found" }, { status: 404 });

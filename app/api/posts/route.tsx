@@ -1,7 +1,7 @@
+import { DataStore } from "@/data/posts";
 import { NextResponse } from "next/server";
 
-import { posts } from "@/data/posts";
-
 export const GET = () => {
-  return NextResponse.json(posts);
+  const dataStore = new DataStore();
+  return NextResponse.json(dataStore.getPosts());
 };
