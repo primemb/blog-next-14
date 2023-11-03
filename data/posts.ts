@@ -1,3 +1,6 @@
+import fs from "fs";
+import path from "path";
+
 export interface IPost {
   id: string;
   title: string;
@@ -6,56 +9,53 @@ export interface IPost {
 }
 
 class DataStore {
-  private data: IPost[] = [
-    {
-      id: "1",
-      title: "Hello World",
-      content:
-        "Anim sit sunt ex mollit commodo laborum nulla adipisicing. Exercitation dolore sunt qui amet. Adipisicing non ea ullamco esse. Quis proident qui Lorem sit culpa nisi est laboris nostrud dolor consectetur. Esse incididunt proident id tempor et id culpa elit enim exercitation ullamco proident elit.",
-      author: "John Doe",
-    },
-    {
-      id: "2",
-      title: "Hello World",
-      content:
-        "Anim sit sunt ex mollit commodo laborum nulla adipisicing. Exercitation dolore sunt qui amet. Adipisicing non ea ullamco esse. Quis proident qui Lorem sit culpa nisi est laboris nostrud dolor consectetur. Esse incididunt proident id tempor et id culpa elit enim exercitation ullamco proident elit.",
-      author: "John Doe",
-    },
-    {
-      id: "3",
-      title: "Hello World",
-      content:
-        "Anim sit sunt ex mollit commodo laborum nulla adipisicing. Exercitation dolore sunt qui amet. Adipisicing non ea ullamco esse. Quis proident qui Lorem sit culpa nisi est laboris nostrud dolor consectetur. Esse incididunt proident id tempor et id culpa elit enim exercitation ullamco proident elit.",
-      author: "John Doe",
-    },
-    {
-      id: "4",
-      title: "Hello World",
-      content:
-        "Anim sit sunt ex mollit commodo laborum nulla adipisicing. Exercitation dolore sunt qui amet. Adipisicing non ea ullamco esse. Quis proident qui Lorem sit culpa nisi est laboris nostrud dolor consectetur. Esse incididunt proident id tempor et id culpa elit enim exercitation ullamco proident elit.",
-      author: "John Doe",
-    },
-  ];
+  private filePath: string;
+
+  constructor() {
+    this.filePath = path.resolve(path.resolve(), "data.json");
+    console.log(this.filePath);
+    if (!fs.existsSync(this.filePath)) {
+      fs.writeFileSync(this.filePath, JSON.stringify([]));
+    }
+  }
+
+  private readData(): IPost[] {
+    return JSON.parse(fs.readFileSync(this.filePath, "utf-8"));
+  }
+
+  private writeData(data: IPost[]): void {
+    fs.writeFileSync(this.filePath, JSON.stringify(data));
+  }
 
   public getPosts(): IPost[] {
-    return [...this.data];
+    return this.readData();
   }
 
   public getPost(id: string): IPost | undefined {
-    return this.data.find((post) => post.id === id);
+    const data = this.readData();
+    return data.find((post) => post.id === id);
   }
 
   public addPost(post: IPost): void {
-    this.data.push(post);
+    const data = this.readData();
+    data.unshift(post);
+    this.writeData(data);
   }
 
   public updatePost(post: IPost): void {
-    const index = this.data.findIndex((p) => p.id === post.id);
-    this.data[index] = post;
+    const data = this.readData();
+    const index = data.findIndex((p) => p.id === post.id);
+    if (index !== -1) {
+      data[index] = post;
+      this.writeData(data);
+    }
   }
 
   public deletePost(id: string): void {
-    this.data = this.data.filter((post) => post.id !== id);
+    let data = this.readData();
+    data = data.filter((post) => post.id !== id);
+    this.writeData(data);
   }
 }
-export const dataStore = new DataStore();
+const dataStore = new DataStore();
+export { dataStore };

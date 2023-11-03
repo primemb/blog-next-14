@@ -4,7 +4,7 @@ import CreateButton from "../_components/create-button";
 
 const HomePage = async () => {
   const res = await fetch(process.env.NEXT_PUBLIC_URL + "/api/posts", {
-    cache: "no-cache",
+    cache: "no-store",
   });
 
   if (!res.ok) {

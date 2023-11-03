@@ -16,6 +16,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import CreatePostButton from "../_components/create-post-button";
+import { useFormState } from "react-dom";
+import { createPostSubmit } from "../_actions/actions";
+import { toast } from "sonner";
+import { redirect } from "next/navigation";
+import { useEffect } from "react";
 
 const formSchema = z.object({
   title: z.string().min(3, "Title must be at least 3 characters"),
@@ -23,7 +28,24 @@ const formSchema = z.object({
   content: z.string().min(10, "Content must be at least 10 characters"),
 });
 
+const initialState = {
+  statusCode: undefined,
+  error: undefined,
+  post: undefined,
+};
+
 const CreatePostPage = () => {
+  const [state, formAction] = useFormState(createPostSubmit, initialState);
+
+  useEffect(() => {
+    if (state.post) {
+      toast.success("Post created successfully");
+      redirect("/");
+    } else if (state.error) {
+      toast.error(state.error);
+    }
+  }, [state]);
+
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -33,6 +55,12 @@ const CreatePostPage = () => {
     },
   });
 
+  const handleFormSubmit = async (data: FormData) => {
+    const valid = await form.trigger();
+    if (!valid) return;
+    return formAction(data);
+  };
+
   return (
     <Card className="bg-white dark:bg-primary/5 mt-10">
       <CardHeader>
@@ -40,7 +68,7 @@ const CreatePostPage = () => {
       </CardHeader>
       <CardContent>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(() => {})} className="space-y-8">
+          <form action={handleFormSubmit} className="space-y-8">
             <FormField
               control={form.control}
               name="title"
@@ -51,7 +79,7 @@ const CreatePostPage = () => {
                   </FormLabel>
                   <FormControl>
                     <Input
-                      className="dark:bg-[#353D4B] text-black dark:text-white border dark:border-0 focus-visible:ring-0 focus-visible:ring-offset-0 w-full md:w-8/12"
+                      className="dark:bg-[#414141] text-black dark:text-white border dark:border-0 focus-visible:ring-0 focus-visible:ring-offset-0 w-full md:w-8/12"
                       placeholder="Title"
                       {...field}
                     />
@@ -70,7 +98,7 @@ const CreatePostPage = () => {
                   </FormLabel>
                   <FormControl>
                     <Input
-                      className="dark:bg-[#353D4B] text-black dark:text-white border dark:border-0 focus-visible:ring-0 focus-visible:ring-offset-0 w-full md:w-8/12"
+                      className="dark:bg-[#414141] text-black dark:text-white border dark:border-0 focus-visible:ring-0 focus-visible:ring-offset-0 w-full md:w-8/12"
                       placeholder="Author"
                       {...field}
                     />
@@ -89,8 +117,9 @@ const CreatePostPage = () => {
                   </FormLabel>
                   <FormControl>
                     <Textarea
-                      className="dark:bg-[#353D4B] text-black dark:text-white border dark:border-0 focus-visible:ring-0 focus-visible:ring-offset-0 w-full md:w-8/12"
+                      className="dark:bg-[#414141] text-black dark:text-white border dark:border-0 focus-visible:ring-0 focus-visible:ring-offset-0 w-full md:w-8/12"
                       placeholder="Author"
+                      rows={10}
                       {...field}
                     />
                   </FormControl>

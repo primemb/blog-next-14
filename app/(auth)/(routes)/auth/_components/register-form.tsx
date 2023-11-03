@@ -79,7 +79,7 @@ const RegisterForm = ({ onChangeMode }: RegisterFormProps) => {
                 </FormLabel>
                 <FormControl>
                   <Input
-                    className="dark:bg-[#353D4B] border dark:border-0 focus-visible:ring-0 text-black dark:text-white focus-visible:ring-offset-0 w-full md:w-8/12"
+                    className="dark:bg-[#414141] border dark:border-0 focus-visible:ring-0 text-black dark:text-white focus-visible:ring-offset-0 w-full md:w-8/12"
                     placeholder="Enter your email"
                     {...field}
                   />
@@ -98,7 +98,7 @@ const RegisterForm = ({ onChangeMode }: RegisterFormProps) => {
                 </FormLabel>
                 <FormControl>
                   <Input
-                    className="dark:bg-[#353D4B] border dark:border-0 focus-visible:ring-0 text-black dark:text-white focus-visible:ring-offset-0 w-full md:w-8/12"
+                    className="dark:bg-[#414141] border dark:border-0 focus-visible:ring-0 text-black dark:text-white focus-visible:ring-offset-0 w-full md:w-8/12"
                     placeholder="Enter your email"
                     {...field}
                     type="email"
@@ -118,7 +118,7 @@ const RegisterForm = ({ onChangeMode }: RegisterFormProps) => {
                 </FormLabel>
                 <FormControl>
                   <Input
-                    className="dark:bg-[#353D4B] border dark:border-0 focus-visible:ring-0 text-black dark:text-white focus-visible:ring-offset-0 w-full md:w-8/12"
+                    className="dark:bg-[#414141] border dark:border-0 focus-visible:ring-0 text-black dark:text-white focus-visible:ring-offset-0 w-full md:w-8/12"
                     placeholder="Password"
                     type="password"
                     {...field}
