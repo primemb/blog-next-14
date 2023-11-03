@@ -20,6 +20,7 @@ import SubmitButton from "./submit-button";
 import { ILoginResponse } from "../_types/types";
 import { toast } from "sonner";
 import { redirect } from "next/navigation";
+import useAuth from "@/hooks/use-auth";
 
 interface LoginFormProps {
   onChangeMode: () => void;
@@ -37,10 +38,12 @@ const initialState: ILoginResponse = {
 };
 
 const LoginForm = ({ onChangeMode }: LoginFormProps) => {
+  const { login } = useAuth();
   const [state, formAction] = useFormState(loginSubmit, initialState);
 
   useEffect(() => {
     if (state.token) {
+      login(state.token);
       toast.success("Login success");
       redirect("/");
     } else if (state.error) {

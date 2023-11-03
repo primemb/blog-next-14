@@ -29,8 +29,6 @@ export const loginSubmit = async (
       return { statusCode: res.status, error: body.error };
     }
 
-    cookies().set("token", body.response, { httpOnly: true, path: "/" });
-
     return { statusCode: 200, token: body.response };
   } catch (error) {
     console.log(error);

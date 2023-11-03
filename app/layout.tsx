@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Toaster } from "sonner";
-import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeProvider } from "@/providers/theme-provider";
 import "./globals.css";
+import { ClientCookiesProvider } from "@/providers/cookies-provider";
+import { cookies } from "next/headers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,16 +21,18 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning={true}>
       <body className={inter.className}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-          storageKey="blog-theme"
-        >
-          <Toaster position="bottom-right" />
-          {children}
-        </ThemeProvider>
+        <ClientCookiesProvider value={cookies().getAll()}>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+            storageKey="blog-theme"
+          >
+            <Toaster position="bottom-right" />
+            {children}
+          </ThemeProvider>
+        </ClientCookiesProvider>
       </body>
     </html>
   );

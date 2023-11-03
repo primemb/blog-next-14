@@ -2,8 +2,9 @@
 
 import { ModeToggle } from "@/components/mode-toggle";
 import { Button } from "@/components/ui/button";
+import useAuth from "@/hooks/use-auth";
 import { cn } from "@/lib/utils";
-import { User } from "lucide-react";
+import { LogOut, User } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
@@ -14,6 +15,7 @@ const links = [
 ];
 
 const Navbar = () => {
+  const { isLogin, logout } = useAuth();
   const pathName = usePathname();
 
   return (
@@ -33,12 +35,19 @@ const Navbar = () => {
           ))}
         </ul>
         <div className="flex items-center">
-          <Button size="sm" variant="link" asChild>
-            <Link href="/auth">
-              <User className="w-4 h-4 mr-2" />
-              Login / Signup
-            </Link>
-          </Button>
+          {!isLogin && (
+            <Button size="sm" variant="link" asChild>
+              <Link href="/auth">
+                <User className="w-4 h-4 mr-2" />
+                Login / Signup
+              </Link>
+            </Button>
+          )}
+          {isLogin && (
+            <Button size="sm" variant="link" onClick={logout}>
+              Logout
+            </Button>
+          )}
           <ModeToggle />
         </div>
       </nav>

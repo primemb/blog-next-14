@@ -1,32 +1,41 @@
-import { cookies } from "next/headers";
+import { useCookies } from "next-client-cookies";
 import { useCallback, useEffect, useState } from "react";
 
 const useAuth = () => {
+  const cookies = useCookies();
   const [token, setToken] = useState<string | undefined>(undefined);
+  const [isLogin, setIsLogin] = useState<boolean>(false);
 
   const logout = useCallback(() => {
-    cookies().delete("token");
+    cookies.remove("token");
+    setIsLogin(false);
     setToken(undefined);
-  }, []);
+  }, [cookies]);
 
   const login = useCallback(
-    (token: string) => {
-      cookies().set("token", token);
-      setToken(token);
+    (tokenValue: string) => {
+      // TODO: next-client-cookies need to add httpOnly option
+      cookies.set("token", tokenValue, {
+        path: "/",
+      });
+      setIsLogin(true);
+      setToken(tokenValue);
     },
-    [setToken]
+    [cookies]
   );
 
   useEffect(() => {
-    const token = cookies().get("token");
-
-    if (token) {
-      setToken(token.value);
+    const tokenCookie = cookies.get("token");
+    console.log("tokenCookie", tokenCookie);
+    if (tokenCookie) {
+      setToken(tokenCookie);
+      setIsLogin(true);
     }
-  }, []);
+  }, [cookies]);
 
   return {
     token,
+    isLogin,
     login,
     logout,
   };
