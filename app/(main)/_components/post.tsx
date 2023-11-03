@@ -24,7 +24,7 @@ const Post = ({ post }: PostProps) => {
         <CardDescription>Author : {post.author}</CardDescription>
       </CardHeader>
       <CardContent>
-        <p>{post.content}</p>
+        <p className="line-clamp-2">{post.content}</p>
       </CardContent>
       <CardFooter className="flex flex-row-reverse">
         <Button asChild>
