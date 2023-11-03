@@ -11,7 +11,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import SubmitButton from "./submit-button";
@@ -56,13 +56,19 @@ const RegisterForm = ({ onChangeMode }: RegisterFormProps) => {
     },
   });
 
+  const handleFormSubmit = async (data: FormData) => {
+    const valid = await form.trigger();
+    if (!valid) return;
+    return formAction(data);
+  };
+
   return (
     <div className="flex flex-col mx-2 max-w-[700px] w-full border border-neutral-600 dark:border-neutral-300 rounded-md px-6 py-10 bg-white dark:bg-primary/5">
       <h2 className="text-2xl text-center w-full tracking-widest mb-5">
         Register
       </h2>
       <Form {...form}>
-        <form action={formAction} className="space-y-8">
+        <form action={handleFormSubmit} className="space-y-8">
           <FormField
             control={form.control}
             name="username"

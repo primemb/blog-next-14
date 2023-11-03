@@ -59,13 +59,19 @@ const LoginForm = ({ onChangeMode }: LoginFormProps) => {
     },
   });
 
+  const handleFormSubmit = async (data: FormData) => {
+    const valid = await form.trigger();
+    if (!valid) return;
+    return formAction(data);
+  };
+
   return (
     <div className="flex flex-col mx-2 max-w-[700px] w-full border border-neutral-600 dark:border-neutral-300 rounded-md px-6 py-10 bg-white dark:bg-primary/5">
       <h2 className="text-2xl text-center w-full tracking-widest mb-5">
         Login
       </h2>
       <Form {...form}>
-        <form action={formAction} className="space-y-8">
+        <form action={handleFormSubmit} className="space-y-8">
           <FormField
             control={form.control}
             name="email"
@@ -78,6 +84,7 @@ const LoginForm = ({ onChangeMode }: LoginFormProps) => {
                   <Input
                     className="dark:bg-[#353D4B] text-black dark:text-white border dark:border-0 focus-visible:ring-0 focus-visible:ring-offset-0 w-full md:w-8/12"
                     placeholder="Enter your email"
+                    type="email"
                     {...field}
                   />
                 </FormControl>
