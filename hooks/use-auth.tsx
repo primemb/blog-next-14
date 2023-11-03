@@ -26,7 +26,6 @@ const useAuth = () => {
 
   useEffect(() => {
     const tokenCookie = cookies.get("token");
-    console.log("tokenCookie", tokenCookie);
     if (tokenCookie) {
       setToken(tokenCookie);
       setIsLogin(true);

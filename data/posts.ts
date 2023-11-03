@@ -5,7 +5,7 @@ export interface IPost {
   author: string;
 }
 
-export class DataStore {
+class DataStore {
   private data: IPost[] = [
     {
       id: "1",
@@ -58,3 +58,4 @@ export class DataStore {
     this.data = this.data.filter((post) => post.id !== id);
   }
 }
+export const dataStore = new DataStore();
