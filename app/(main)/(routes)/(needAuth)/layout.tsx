@@ -9,7 +9,6 @@ const NeedAuthLayout = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     if (!isLogin) {
-      console.log("redirecting to /auth");
       redirect("/auth");
     }
   }, [isLogin]);

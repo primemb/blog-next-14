@@ -1,13 +1,17 @@
-import { getCookies } from "next-client-cookies/server";
+"use client";
+
+import { useAuth } from "@/hooks/use-auth";
 import { redirect } from "next/navigation";
+import { useEffect } from "react";
 
 const AuthLayout = ({ children }: { children: React.ReactNode }) => {
-  const cookies = getCookies();
-  const token = cookies.get("token");
+  const { isLogin } = useAuth();
 
-  if (token) {
-    redirect("/");
-  }
+  useEffect(() => {
+    if (isLogin) {
+      redirect("/");
+    }
+  }, [isLogin]);
 
   return (
     <div className="w-full min-h-full dark:bg-[#1F1F1F] bg-gray-100">
