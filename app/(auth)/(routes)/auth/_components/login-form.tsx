@@ -20,7 +20,7 @@ import SubmitButton from "./submit-button";
 import { ILoginResponse } from "../_types/types";
 import { toast } from "sonner";
 import { redirect } from "next/navigation";
-import useAuth from "@/hooks/use-auth";
+import { useAuth } from "@/hooks/use-auth";
 
 interface LoginFormProps {
   onChangeMode: () => void;

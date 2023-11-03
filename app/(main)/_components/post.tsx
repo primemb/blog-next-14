@@ -20,7 +20,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
-import useAuth from "@/hooks/use-auth";
+import { useAuth } from "@/hooks/use-auth";
 import ConfirmModal from "@/components/modals/confirm-modal";
 import { useState } from "react";
 import { toast } from "sonner";

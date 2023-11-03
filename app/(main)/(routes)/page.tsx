@@ -1,5 +1,6 @@
 import { IPost } from "@/data/posts";
 import Post from "../_components/post";
+import CreateButton from "../_components/create-button";
 
 const HomePage = async () => {
   const res = await fetch(process.env.NEXT_PUBLIC_URL + "/api/posts", {
@@ -14,6 +15,7 @@ const HomePage = async () => {
 
   return (
     <div className="flex flex-col h-full py-10">
+      <CreateButton />
       {posts.map((post) => (
         <Post key={post.id} post={post} />
       ))}

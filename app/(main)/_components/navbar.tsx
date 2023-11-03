@@ -2,7 +2,7 @@
 
 import { ModeToggle } from "@/components/mode-toggle";
 import { Button } from "@/components/ui/button";
-import useAuth from "@/hooks/use-auth";
+import { useAuth } from "@/hooks/use-auth";
 import { cn } from "@/lib/utils";
 import { LogOut, User } from "lucide-react";
 import Link from "next/link";

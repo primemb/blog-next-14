@@ -29,7 +29,7 @@ export default function RootLayout({
             disableTransitionOnChange
             storageKey="blog-theme"
           >
-            <Toaster position="bottom-right" />
+            <Toaster position="top-right" closeButton />
             {children}
           </ThemeProvider>
         </ClientCookiesProvider>
