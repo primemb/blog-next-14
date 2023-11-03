@@ -3,3 +3,8 @@ export interface ILoginResponse {
   token?: string | undefined;
   error?: string | undefined;
 }
+
+export interface IRegisterResponse {
+  statusCode: undefined | number;
+  error?: string | undefined;
+}
