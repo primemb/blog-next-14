@@ -13,7 +13,6 @@ class DataStore {
 
   constructor() {
     this.filePath = path.resolve(path.resolve(), "data.json");
-    console.log(this.filePath);
     if (!fs.existsSync(this.filePath)) {
       fs.writeFileSync(this.filePath, JSON.stringify([]));
     }

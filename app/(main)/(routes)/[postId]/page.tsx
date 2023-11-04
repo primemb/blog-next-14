@@ -8,11 +8,30 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { IPost } from "@/data/posts";
+import { Metadata, ResolvingMetadata } from "next";
 import { notFound } from "next/navigation";
 
 interface PostDetailPageProps {
   params: {
     postId: string;
+  };
+}
+
+export async function generateMetadata(
+  { params }: PostDetailPageProps,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const res = await fetch(
+    process.env.NEXT_PUBLIC_URL + `/api/posts/${params.postId}`,
+    {
+      next: { tags: [`post:${params.postId}`] },
+    }
+  );
+
+  const post: IPost = await res.json();
+
+  return {
+    title: post.title,
   };
 }
 
