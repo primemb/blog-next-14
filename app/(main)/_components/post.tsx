@@ -13,7 +13,7 @@ import {
 
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { MoreHorizontal, Trash } from "lucide-react";
+import { ClipboardEdit, MoreHorizontal, Trash } from "lucide-react";
 import {
   DropdownMenuTrigger,
   DropdownMenu,
@@ -83,6 +83,15 @@ const Post = ({ post }: PostProps) => {
                   side="left"
                   forceMount
                 >
+                  <DropdownMenuItem>
+                    <Link
+                      className="w-full flex items-center justify-start"
+                      href={`/edit/${post.id}`}
+                    >
+                      <ClipboardEdit className="h-4 w-4 mr-2" />
+                      Edit
+                    </Link>
+                  </DropdownMenuItem>
                   <DropdownMenuItem onClick={() => setShowModal(true)}>
                     <Trash className="h-4 w-4 mr-2" />
                     Delete

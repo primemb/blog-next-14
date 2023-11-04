@@ -1,15 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import LoginForm from "./_components/login-form";
 import RegisterForm from "./_components/register-form";
 
 const AuthPage = () => {
   const [isLogin, setIslogin] = useState(true);
 
-  const switchModeHandler = () => {
+  const switchModeHandler = useCallback(() => {
     setIslogin((state) => !state);
-  };
+  }, []);
 
   const content = isLogin ? (
     <LoginForm onChangeMode={switchModeHandler} />

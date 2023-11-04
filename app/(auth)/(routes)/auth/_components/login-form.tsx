@@ -49,7 +49,7 @@ const LoginForm = ({ onChangeMode }: LoginFormProps) => {
     } else if (state.error) {
       toast.error(state.error);
     }
-  }, [state]);
+  }, [state, login]);
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -120,7 +120,7 @@ const LoginForm = ({ onChangeMode }: LoginFormProps) => {
               variant="link"
               className="text-black dark:text-white"
             >
-              Don't have account ? Sign up
+              Don&apos;t have account ? Sign up
             </Button>
           </div>
         </form>

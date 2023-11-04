@@ -8,6 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { IPost } from "@/data/posts";
+import { notFound } from "next/navigation";
 
 interface PostDetailPageProps {
   params: {
@@ -17,14 +18,21 @@ interface PostDetailPageProps {
 
 const PostDetailPage = async ({ params }: PostDetailPageProps) => {
   const res = await fetch(
-    process.env.NEXT_PUBLIC_URL + `/api/posts/${params.postId}`
+    process.env.NEXT_PUBLIC_URL + `/api/posts/${params.postId}`,
+    {
+      next: { tags: [`post:${params.postId}`] },
+    }
   );
 
-  if (!res.ok) {
-    throw new Error("Something went wrong");
-  }
-
   const post: IPost = await res.json();
+
+  if (!res.ok) {
+    if (res.status === 404) {
+      notFound();
+    } else {
+      throw new Error("Something went wrong");
+    }
+  }
 
   return (
     <Card className="bg-white mt-10 dark:bg-primary/5 text-black dark:text-white border-none p-4 mb-4">

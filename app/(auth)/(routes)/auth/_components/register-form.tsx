@@ -45,7 +45,7 @@ const RegisterForm = ({ onChangeMode }: RegisterFormProps) => {
     } else if (state.error) {
       toast.error(state.error);
     }
-  }, [state]);
+  }, [state, onChangeMode]);
 
   const form = useForm({
     resolver: zodResolver(formSchema),
